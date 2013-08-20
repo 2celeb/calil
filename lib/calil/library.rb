@@ -11,7 +11,7 @@ module Calil
 
       libraries = []
       REXML::Document.new(open(url)).elements.each('Libraries/Library') do |element|
-        libraries << Libray.new(element)
+        libraries << Library.new(element)
       end
 
       libraries
