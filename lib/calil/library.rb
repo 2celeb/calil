@@ -5,6 +5,7 @@ module Calil
     def self.find(params = {})
 
       params.merge!(appkey: ENV["CALIL_APP_KEY"]) unless params[:appkey]
+      raise "calil appkey notfound" unless params[:appkey]
 
       query = params.map {|k,v| "#{k}=#{CGI.escape(v.to_s)}" }.join("&").to_s
       url = "http://api.calil.jp/library?#{query}"
