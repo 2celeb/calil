@@ -67,7 +67,7 @@ module Calil
       @element = element
       @systems = []
       element.elements.each('system') do |system|
-        @systems << System.new(system)
+        @systems << Calil::System.new(system)
       end
 
     end
@@ -91,6 +91,18 @@ module Calil
 
     def reservables
       @systems.select {|system| system.reservable? }
+    end
+
+    def inspect
+      attr_body = %w(isbn calilurl reservable?).map do |method_name|
+        eval("\"#{method_name}: '#{send(method_name)}'\"")
+      end.join(", ")
+
+      systems_body = @systems.map do |sytem|
+        sytem.inspect
+      end.join(", ")
+
+      "#<Book #{attr_body} systems: [#{systems_body}]>"
     end
 
   end

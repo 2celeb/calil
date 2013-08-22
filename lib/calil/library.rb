@@ -22,6 +22,13 @@ module Calil
       @element = element
     end
 
+    def inspect
+      attr_body = %w(systemid systemname libkey libid short formal url_pc address pref city post tel geocode category image).map do |method_name|
+        eval("\"#{method_name}: '#{send(method_name)}'\"")
+      end.join(", ")
+      "#<Library #{attr_body}>"
+    end
+
     def method_missing(action, *args)
 
       if %w(systemid systemname libkey libid short formal url_pc address pref city post tel geocode category image).include? action.to_s
